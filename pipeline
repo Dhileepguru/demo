@@ -1,0 +1,51 @@
+pipeline {
+    tools {
+        maven 'Maven 3.6.3'
+    }
+    agent any
+    stages {
+        stage('Checkout') {
+            steps {
+                git url: 'https://github.com/Dhileepguru/Ubuntu_maven.git', branch: 'main'
+            }
+        }
+        stage('Compile') {
+            steps {
+                script {
+                    if (isUnix()) {
+                        sh 'mvn compile'
+                    } else {
+                        bat 'mvn compile'
+                    }
+                }
+            }
+        }
+        stage('Test') {
+            steps {
+                script {
+                    if (isUnix()) {
+                        sh 'mvn test'
+                    } else {
+                        bat 'mvn test'
+                    }
+                }
+            }
+        }
+        stage('Build') {
+            steps {
+                script {
+                    if (isUnix()) {
+                        sh 'mvn package'
+                    } else {
+                        bat 'mvn package'
+                    }
+                }
+            }
+        }
+        stage('Deploy') {
+            steps {
+                echo 'Deployment stage - add deployment steps here'
+            }
+        }
+    }
+}
