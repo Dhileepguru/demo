@@ -1,7 +1,8 @@
 pipeline {
     agent any
     tools {
-        maven 'Maven 3.6.3' // Corrected tool name
+        tool name: 'Maven 3.6.3', type: 'maven'
+// Corrected tool name
     }
     stages {
         stage('Checkout') {
